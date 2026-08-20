@@ -103,7 +103,8 @@ function setupMeetingForm() {
       });
 
       if (error) {
-        meetingsError.textContent = error.message || "Couldn't start the meeting.";
+        const body = await readEdgeFunctionBody(error);
+        meetingsError.textContent = body.error || "Couldn't start the meeting.";
         meetingsError.hidden = false;
         return;
       }
@@ -180,7 +181,8 @@ function setupRosterUpload() {
       });
 
       if (error) {
-        resultEl.textContent = error.message || "Couldn't upload the roster.";
+        const body = await readEdgeFunctionBody(error);
+        resultEl.textContent = body.error || "Couldn't upload the roster.";
       } else {
         resultEl.textContent = `Added/updated ${data.upserted} student(s).`;
         textArea.value = "";

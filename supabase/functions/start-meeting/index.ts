@@ -119,7 +119,8 @@ Deno.serve(async (req) => {
       },
       attendanceUrl: `${siteUrl}/index.html?t=${rawToken}`,
     });
-  } catch {
+  } catch (err) {
+    console.error("start-meeting error:", err);
     return json({ error: "internal_error" }, 500);
   }
 });

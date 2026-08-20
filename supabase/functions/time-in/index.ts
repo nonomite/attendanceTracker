@@ -84,7 +84,8 @@ Deno.serve(async (req) => {
     }
 
     return json({ status: "recorded" });
-  } catch {
+  } catch (err) {
+    console.error("time-in error:", err);
     return json({ status: "error" }, 500);
   }
 });

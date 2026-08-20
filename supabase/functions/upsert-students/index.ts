@@ -72,7 +72,8 @@ Deno.serve(async (req) => {
     if (error) return json({ error: error.message }, 400);
 
     return json({ upserted: data.length });
-  } catch {
+  } catch (err) {
+    console.error("upsert-students error:", err);
     return json({ error: "internal_error" }, 500);
   }
 });

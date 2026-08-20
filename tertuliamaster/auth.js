@@ -20,14 +20,11 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
     return;
   }
 
-  const { data: profile, error: profileError } = await supabaseClient
+  const { data: profile } = await supabaseClient
     .from("profiles")
     .select("role")
     .eq("id", data.session.user.id)
     .single();
-
-  console.log("signed-in user id:", data.session.user.id);
-  console.log("profile lookup:", profile, profileError);
 
   if (!profile || profile.role !== "admin") {
     await supabaseClient.auth.signOut();

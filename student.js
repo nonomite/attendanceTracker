@@ -40,13 +40,10 @@ if (!meetingToken) {
         body: { token: meetingToken, studentNumber },
       });
 
-      if (error) {
-        showResult(STATUS_TEXT.error);
-      } else {
-        showResult(STATUS_TEXT[data.status] ?? STATUS_TEXT.error);
-        if (data.status === "recorded" || data.status === "already_checked_in") {
-          timeInForm.hidden = true;
-        }
+      const status = error ? (await readEdgeFunctionBody(error)).status : data.status;
+      showResult(STATUS_TEXT[status] ?? STATUS_TEXT.error);
+      if (status === "recorded" || status === "already_checked_in") {
+        timeInForm.hidden = true;
       }
     } catch {
       showResult(STATUS_TEXT.error);
