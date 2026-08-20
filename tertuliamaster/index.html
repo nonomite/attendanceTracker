@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Tertulia Attendance Tracker</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="topnav">
+	<div>
+      <a href="#">Tertulia Attendance Tracker</a>
+    </div>
+</nav>
+<div class="sidenav">
+  <div class="">
+    <a href="#" data-section="attendance">Attendance</a>
+    <a href="#" data-section="meetings">Meetings</a>
+    <a href="#" data-section="students">Students</a>
+  </div>
+
+  <div class="anchor-down">
+    <button id="lgout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="content">
+  <section id="section-attendance" class="section-panel">
+    <h2>Attendance</h2>
+    <table class="attendance-table">
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Time In</th>
+          <th>Meeting</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceRows">
+        <tr><td colspan="4">Loading...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="section-meetings" class="section-panel" hidden>
+    <h2>Meetings</h2>
+
+    <div id="noOpenMeeting">
+      <form id="startMeetingForm" class="meeting-card">
+        <div class="form-group">
+          <input class="form-control" type="text" id="meetingTitle" placeholder="Meeting title" required>
+        </div>
+        <div class="form-group mt-4">
+          <input class="form-control" type="text" id="meetingCode" placeholder="Meeting code" required>
+        </div>
+        <div class="form-group mt-4">
+          <label for="meetingDuration">Duration (minutes)</label>
+          <input class="form-control" type="number" id="meetingDuration" value="60" min="1" max="360" required>
+        </div>
+        <div class="form-group mt-4">
+          <button type="submit" class="btn btn-primary btn-block">Start Meeting</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="openMeeting" class="meeting-card" hidden>
+      <h3 id="openMeetingTitle"></h3>
+      <p id="openMeetingExpiry"></p>
+      <div id="qr"></div>
+      <p>Students scan this code to time in.</p>
+    </div>
+
+    <p id="meetingsError" class="timein-message" hidden></p>
+  </section>
+
+  <section id="section-students" class="section-panel" hidden>
+    <h2>Students</h2>
+    <p>Paste rows as <code>student_number,full_name</code> (one per line), or choose a CSV file. Existing student numbers get their name updated; new ones get added.</p>
+
+    <div class="meeting-card">
+      <div class="form-group">
+        <input type="file" id="rosterFile" accept=".csv,text/csv">
+      </div>
+      <div class="form-group mt-4">
+        <textarea id="rosterText" class="form-control" rows="8" placeholder="2023-0001,Juan Dela Cruz&#10;2023-0002,Maria Santos"></textarea>
+      </div>
+      <div class="form-group mt-4">
+        <button type="button" id="uploadRosterBtn" class="btn btn-primary btn-block">Add / Update Students</button>
+      </div>
+    </div>
+
+    <p id="rosterResult" class="timein-message" hidden></p>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-client.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="../qr.js"></script>
+<script src="admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tertulia Attendance Tracker</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <main class="timein-main">
+        <div class="timein-card">
+            <h1 class="timein-title">Tertulia Attendance Tracker</h1>
+
+            <p id="noMeetingMessage" class="timein-message" hidden>
+                This link isn't tied to an open meeting. Scan the QR code shown by your admin to time in.
+            </p>
+
+            <form id="timeInForm" class="timein-form">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Enter Student ID" id="studentID" name="studentID" required>
+                </div>
+                <div class="form-group mt-4">
+                    <button type="submit" id="timeInBtn" class="btn btn-primary btn-block">Time In</button>
+                </div>
+            </form>
+
+            <p id="resultMessage" class="timein-message" hidden></p>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="student.js" defer></script>
+  </body>
+</html>
